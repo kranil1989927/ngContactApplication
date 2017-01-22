@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="contactApp">
+	<head>
+		<title>Contact App</title>
+		<link rel="stylesheet" type="text/css" href="\bootstrap\css\bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css" href="\bootstrap\css\bootstrap-theme.css"></link>
+		<script src="angular.js"></script>
+		<script src="app.js"></script>
+		<script src="appConfig.service.js"></script>
+		<script src="appname.service.js"></script>
+		<script src="contactdata.service.js"></script>
+		<script src="contact.controller.js"></script>
+	</head>
+	<body>
+		<div class="container" data-ng-controller="ContactCtrl as ctrl">
+			<h3>{{ctrl.appDetails.name}}</h3>
+			<div class="modal-body row">
+				<div class="col-md-6">
+					<ul class="list-group">
+						<li class="list-group-item">
+							<span><b>Contact Name</b></span>
+							<span style="margin-right: 10px; float: right;"><b>Phone Number</b></span>
+						</li>
+						<li class="list-group-item" data-ng-repeat="contact in ctrl.contacts" ng-click="ctrl.showContactDetail($index)">
+							<span>{{contact.name.first + " " + contact.name.last}}</span>
+							<span style="margin-right: 10px; float: right;">{{contact.phone}}</span>
+						</li>
+					</ul>
+					<button data-ng-click="ctrl.addContact()">Add</button>
+				</div>
+				<div class="col-md-6">
+					<div class="media">
+						<div class="alert alert-success" role="alert" data-ng-if="ctrl.successMsg">{{ctrl.successMsg}}</div>
+						<div class="alert alert-danger" role="alert" data-ng-if="ctrl.errorMsg">{{ctrl.errorMsg}}</div>
+						<div class="media-left">
+							<a href="#">
+						      <img class="media-object" ng-src="{{ctrl.selectedContact.picture.large}}">
+						    </a>
+						</div>
+						<div class="media-body">
+							<button data-ng-hide="ctrl.editMode" data-ng-click="ctrl.toogleEditMode()">Edit</button>
+							<button data-ng-show="ctrl.editMode" data-ng-click="ctrl.saveUser()">Save</button>
+							<p>
+								<span>First Name: </span>
+								<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.name.first}}</span>
+								<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.name.first"></input>
+							</p>
+							<p>
+								<span>Last Name: </span>
+								<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.name.last}}</span>
+								<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.name.last"></input>
+							</p>		
+							
+							<div>
+								<p><span><u>Location : </span></u></p>
+								<p>
+									<span>Street: </span>
+									<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.street}}</span>
+									<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.location.street"></input>
+								</p>
+								<p>
+									<span>City: </span>
+									<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.city}}</span>
+									<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.location.city"></input>
+								</p>
+								<p>
+									<span>State: </span>
+									<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.state}}</span>
+									<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.location.state"></input>
+								</p>
+								<p>
+									<span>Post Code: </span>
+									<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.location.postcode}}</span>
+									<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.location.postcode"></input>
+								</p>
+							</div>
+							<div>
+								<p> 
+									<span>Phone :</span>
+									<span data-ng-hide="ctrl.editMode">{{ctrl.selectedContact.cell}}</span>
+									<input type="text" data-ng-show="ctrl.editMode" data-ng-model="ctrl.selectedContact.cell"></input>
+								</p>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h5>{{ctrl.appDetails.author}} | {{ctrl.appDetails.buildDate}}</h5>
+		</div>		
+	</body>
+</html>
